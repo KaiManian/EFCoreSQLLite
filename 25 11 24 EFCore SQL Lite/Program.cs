@@ -1,6 +1,6 @@
-﻿using _25_11_24_EFCore_SQL_Lite.Contexts;
-using _25_11_24_EFCore_SQL_Lite.Models;
-using _25_11_24_EFCore_SQL_Lite.Repositories;
+﻿using ExpensesTrackerLibrary.Contexts;
+using ExpensesTrackerLibrary.Models;
+using ExpensesTrackerLibrary.Repositories;
 
 internal class Program
 {
