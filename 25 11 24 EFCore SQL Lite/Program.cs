@@ -1,5 +1,6 @@
 ﻿using _25_11_24_EFCore_SQL_Lite.Contexts;
 using _25_11_24_EFCore_SQL_Lite.Models;
+using _25_11_24_EFCore_SQL_Lite.Repositories;
 
 internal class Program
 {
@@ -7,26 +8,28 @@ internal class Program
     {
         using (var context = new ExpensesTrackerContext())
         {
-            //context.Categories.Add(new Category { Name = "Food" });
-            //context.Categories.Add(new Category { Name = "Transportation" });
+            var repo = new ExpenseRepository(context);
+            
+            var categories = repo.GetAllCategories();
 
-            //context.SaveChanges();
+            //foreach(var cat in categories)
+            //{
+            //    Console.WriteLine(cat.Name);
+            //}
 
-            context.Expenses.Add(new Expense
+            repo.AddExpense(new Expense
             {
                 Date = DateTime.Now,
-                Amount = 150,
-                Description = "Diner",
-                Category = context.Categories.FirstOrDefault()
+                Amount = 80,
+                Description = "Bus",
+                Category = categories.Skip(1).FirstOrDefault()
             });
 
-            context.SaveChanges();
-
             //Retrieve and display all expenses
-            var expenses = context.Expenses.ToList();
+            var expenses = repo.GetAllExpense();
             foreach (var expense in expenses)
             {
-                Console.WriteLine($"Date: {expense.Date}, Amount: {expense.Amount}, " +
+                Console.WriteLine($"Date: {expense.Date}, Amount: {expense.Amount:0.00}, " +
                     $"Description: {expense.Description}, Category: {expense.Category.Name}");
             }
         }
