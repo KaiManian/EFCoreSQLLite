@@ -29,6 +29,12 @@ namespace ExpensesTrackerLibrary.Repositories
             }
         }
 
+        public void DeleteCategories(List<Category> categories)
+        {
+            _context.Categories.RemoveRange(categories);
+            _context.SaveChanges();
+        }
+
         public IEnumerable<Category> GetAllCategories()
         {
             return _context.Categories.ToList();
