@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExpensesTrackerApplication"
+        xmlns:charts="clr-namespace=System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
@@ -39,6 +40,108 @@
                                 Header="Name"/>
                         </DataGrid.Columns>                          
                      </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="New Expense">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Width="410"
+                                Orientation="Horizontal">
+                        <TextBlock Text="Date"
+                                   Width="150"
+                                   Margin="5"/>
+                        <DatePicker x:Name="datePickerExpenseDate"
+                                    IsTodayHighlighted="True"
+                                    Width="240"
+                                    Margin="5"/>
+                    </StackPanel>
+                    <StackPanel Width="410"
+                                Orientation="Horizontal"
+                                Grid.Row="1">
+                        <TextBlock Text="Category"
+                                   Width="150"
+                                   Margin="5"/>
+                        <ComboBox x:Name="comboBoxExpenseCategory"
+                                  Width="240"
+                                  Margin="5">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Width="410"
+                                Orientation="Horizontal"
+                                Grid.Row="2">
+                        <TextBlock Text="Amount"
+                                   Width="150"
+                                   Margin="5"/>
+                        <TextBox x:Name="textBoxExpenseAmount"
+                                 Width="240"
+                                 Margin="5"/>
+                    </StackPanel>
+                    <TextBlock Text="Description"
+                               Width="410"
+                               Margin="5"
+                               Grid.Row="3"/>
+                    <TextBox x:Name="textBoxExpenseDescription"
+                             Width="410"
+                             Margin="5"
+                             HorizontalAlignment="Center"
+                             Grid.Row="4"/>
+                    <Button x:Name="buttonAddExpense"
+                            Content="Add New Expense"
+                            Margin="5"
+                            HorizontalAlignment="Center"
+                            Grid.Row="5"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Expenses Table">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        
+                    </StackPanel>
+                    <DataGrid x:Name="dataGridExpenses"
+                              Margin="5"
+                              Width="600"
+                              Grid.Row="1"
+                              AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Binding="{Binding Id}"
+                                Header="Id"
+                                IsReadOnly="True"
+                                Width="40"/>
+                            <DataGridTextColumn
+                                Binding="{Binding Date}"
+                                Header="Date"
+                                Width="100"/>                            
+                            <DataGridTextColumn
+                                Binding="{Binding Name}"
+                                Header="Name"
+                                Width="100"/>                            
+                            <DataGridTextColumn
+                                Binding="{Binding Amount}"
+                                Header="Amount"
+                                Width="100"/>
+                            <DataGridTextColumn
+                                Binding="{Binding Description}"
+                                Header="Description"
+                                Width="260"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
         </TabControl>

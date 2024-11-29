@@ -43,7 +43,8 @@ namespace ExpensesTrackerLibrary.Repositories
         public ObservableCollection<Category> GetAllCategoriesObservable()
         {
             _context.Categories.Load();
-            return _context.Categories.Local.ToObservableCollection();
+            return _context.Categories.Local
+                .ToObservableCollection();
         }
 
         public void AddExpense(Expense expense)
@@ -65,6 +66,13 @@ namespace ExpensesTrackerLibrary.Repositories
         public IEnumerable<Expense> GetAllExpense()
         {
             return _context.Expenses.ToList();
+        }
+
+        public ObservableCollection<Expense> GetAllExpensesObservable()
+        {
+            _context.Expenses.Include(e => e.Category).Load();
+            return _context.Expenses.Local
+                .ToObservableCollection();
         }
 
         public IEnumerable<Expense> GetExpensesByCategoryName(string categoryName)

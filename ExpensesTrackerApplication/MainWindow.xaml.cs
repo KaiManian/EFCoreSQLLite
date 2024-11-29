@@ -3,6 +3,11 @@ using ExpensesTrackerLibrary.Contexts;
 using ExpensesTrackerLibrary.Repositories;
 using ExpensesTrackerLibrary.Models;
 using System.Collections.Generic;
+using System;
+using System.Windows.Automation.Peers;
+using System.Windows.Controls;
+using System.Windows.Controls.DataVisualization.Charting;
+using System.Windows.Controls.DataVisualization;
 
 namespace ExpensesTrackerApplication
 {
@@ -21,9 +26,36 @@ namespace ExpensesTrackerApplication
             _repository = new ExpenseRepository(_context);
 
             dataGridCategories.ItemsSource = _repository.GetAllCategoriesObservable();
+            dataGridExpenses.ItemsSource = _repository.GetAllExpensesObservable();
+
+            comboBoxExpenseCategory.ItemsSource = _repository.GetAllCategoriesObservable();
 
             buttonAddCategory.Click += ButtonAddCategory_Click;
             buttonDeleteCategories.Click += ButtonDeleteCategories_Click;
+            buttonAddExpense.Click += ButtonAddExpense_Click;
+        }
+
+        private void ButtonAddExpense_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DateTime? dateTime = (DateTime)datePickerExpenseDate.SelectedDate;
+                Category category = comboBoxExpenseCategory.SelectedItem as Category;
+                decimal amount = Convert.ToDecimal(textBoxExpenseAmount.Text);
+                string description = textBoxExpenseDescription.Text;
+
+                _repository.AddExpense(new Expense()
+                {
+                    Date= dateTime != null ? (DateTime)dateTime : DateTime.Now,
+                    Category = category,
+                    Amount = amount,
+                    Description = description
+                });
+            }
+            catch(Exception ex)
+            {
+                ShoeError(ex.Message);
+            }
         }
 
         private void ButtonDeleteCategories_Click(object sender, RoutedEventArgs e)
