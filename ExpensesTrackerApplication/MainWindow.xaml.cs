@@ -6,8 +6,7 @@ using System.Collections.Generic;
 using System;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
-using System.Windows.Controls.DataVisualization.Charting;
-using System.Windows.Controls.DataVisualization;
+
 
 namespace ExpensesTrackerApplication
 {
