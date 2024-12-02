@@ -99,6 +99,17 @@ namespace ExpensesTrackerLibrary.Repositories
                 .ToList();
         }
 
+        public IEnumerable<AmountByDayOfWeek> GetAverageExpensesByDayOfWeek()
+        {
+            return _context.Expenses
+                .GroupBy(e => e.Date.DayOfWeek)
+                .Select(g => new AmountByDayOfWeek(g.Key, g.Average(e => (double) e.Amount)))
+                .ToList();
+        }
+
+
+
+
 
     }
 }

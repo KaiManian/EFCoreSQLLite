@@ -143,9 +143,28 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Graph">
+            <TabItem Header="Day of Week">
                 <Grid>
-                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="buttonUpdateDayOfWeek"
+                            Margin="10"
+                            Content="Update"
+                            HorizontalAlignment="Center"/>
+                    <DataGrid x:Name="dataGridDayOfWeek"
+                              Grid.Row="1"
+                              AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Header="Day"
+                                Binding="{Binding DayofWeek}"/>
+                            <DataGridTextColumn
+                                Header="Amount"
+                                Binding="{Binding Amount}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
         </TabControl>
